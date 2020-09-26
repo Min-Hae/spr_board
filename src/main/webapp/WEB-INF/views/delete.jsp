@@ -27,12 +27,11 @@ function check(){
 <c:forEach var="d" items="${delete}">
 <form name="frm" action="del" method="post">
 <input type="hidden" name="num" value="${d.num }">
-<%-- <input type="hidden" name="page" value="<%=spage%>"> --%>
 비밀번호 입력 : 
 <input type="text" name="pass"><p/>
 <input type="button" onclick="check()" value="삭제확인">
 <input type="button" value="목록보기"
-					onclick="location.href='boardlist'"><%-- page=<%=spage %>'">--%>
+					onclick="location.href='boardlist'">
 </form>
 </c:forEach>
 </body>

@@ -14,12 +14,14 @@ public class BoardImpl extends SqlSessionDaoSupport implements BoardInter{
 	public BoardImpl(SqlSessionFactory factory) {
 		setSqlSessionFactory(factory);
 	}
-	
+	//현재의 num값 가져오는 함수
 	@Override
 	public int currentGetNum() {
 		// TODO Auto-generated method stub
 		return 0;
-	}@Override
+	}
+	//글 삭제하는 함수
+	@Override
 	public boolean delData(String num) {
 		try {
 			int re = getSqlSession().delete("delData",num);
@@ -32,30 +34,27 @@ public class BoardImpl extends SqlSessionDaoSupport implements BoardInter{
 			return false;
 		}
 	}
+	//모든 리스트 가져오는 함수
 	@Override
 	public List<BoardDto> getDataAll() {
 		return getSqlSession().selectList("selectDataAll");
 	}
 	public int getPageSu() {
-	/*
-	pageSu = tot / 10;
-		if(tot % pList > 0) pageSu++;
-		return pageSu;
-		*/
+
 		return 0;
 	}
-	
-	
 	
 	//리스트를 얻는 함수
 	@Override
 	public List<BoardDto> getData(String num) {
 		return getSqlSession().selectList("getData", num);
 	}
+	//댓글 반환 함수
 	@Override
 	public List<BoardDto> getReplyData(String num) {
 		return getSqlSession().selectList("getData", num);
 	}
+	//글 or 댓글 작성하는 함수
 	@Override
 	public boolean saveData(BoardBean bean) {
 		try {
@@ -65,8 +64,8 @@ public class BoardImpl extends SqlSessionDaoSupport implements BoardInter{
 			System.out.println("saveData err : "+ e);
 			return false;
 		}
-		
 	}
+	//글 수정하는 함수
 	@Override
 	public boolean saveEdit(BoardBean bean) {
 		try {
@@ -78,6 +77,7 @@ public class BoardImpl extends SqlSessionDaoSupport implements BoardInter{
 		}
 		
 	}
+	//댓글 저장하는 함수
 	@Override
 	public boolean saveReplyData(BoardBean bean) {
 		try {
@@ -91,6 +91,7 @@ public class BoardImpl extends SqlSessionDaoSupport implements BoardInter{
 	public int totalList() {
 		return 0;
 	}
+	//order num을 증가하는 함수
 	@Override
 	public boolean updateOnum(BoardBean bean) {
 		try {
@@ -102,6 +103,7 @@ public class BoardImpl extends SqlSessionDaoSupport implements BoardInter{
 		}
 		
 	}
+	//조회수 증가하는 함수
 	@Override
 	public boolean updateReadcnt(String num) {
 		try {
@@ -110,14 +112,15 @@ public class BoardImpl extends SqlSessionDaoSupport implements BoardInter{
 		} catch (Exception e) {
 			System.out.println("updateReadcnt err : "+ e);
 			return false;
-		}
-		
+		}	
 	}
+	//num의 최대값을 반환하는 함수
 	@Override
 	public int getMaxNum() {
 		int max = getSqlSession().selectOne("currentGetNum");
 		return max;
 	}
+	//비밀번호 확인하는 함수
 	@Override
 	public String checkPass(String num) {
 		return getSqlSession().selectOne("checkPass", num);

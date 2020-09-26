@@ -26,9 +26,18 @@ public class InsertController {
 	}
 	//댓글 저장하는 함수
 	@RequestMapping(value="replyins", method= RequestMethod.POST)
-	public String insert(BoardBean bean) {
-		boolean b = boardInter.saveReplyData(bean);
+	public String insert(BoardBean bean,  HttpServletRequest request) {
+		Date d = new Date();
+		SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd");
+		int nested = bean.getNested() + 1;
+		bean.setNum(boardInter.getMaxNum()+1);
+		bean.setGnum(bean.getGnum());
+		bean.setNested(nested);
+		bean.setBip(request.getRemoteAddr());
+		bean.setBdate(form.format(d));
 		boolean b1 = boardInter.updateOnum(bean);
+		bean.setOnum(bean.getOnum()+1);
+		boolean b = boardInter.saveData(bean);
 		if(b) return "redirect:/boardlist";
 		else return "error";
 	}	

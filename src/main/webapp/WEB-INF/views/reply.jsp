@@ -2,11 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%--
-String num = request.getParameter("num");
-String spage = request.getParameter("page");
-dto = boardMgr.getReplyData(num);
---%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,10 +34,10 @@ function check(){		//boardwrite.jsp에서 function 그대로 가져오기
 <body>
 <c:forEach var="r" items="${reply }">
 <form action="replyins" name="frm" method="post">	<!-- form태그 사용 시 method="post" 사용하기 -->
-<input type="hidden" name="num" value="${r.num+1 }">	<!-- 보이지는 않지만 가져가야 할 것 : hidden -->
+<input type="hidden" name="num" value="${r.num}">	<!-- 보이지는 않지만 가져가야 할 것 : hidden -->
 <input type="hidden" name="gnum" value="${r.gnum}">
-<input type="hidden" name="onum" value="${r.onum+1}">
-<input type="hidden" name="nested" value="${r.nested+1}">
+<input type="hidden" name="onum" value="${r.onum}">
+<input type="hidden" name="nested" value="${r.nested}">
 
 	<table border="1">
 		<tr>
@@ -61,7 +57,7 @@ function check(){		//boardwrite.jsp에서 function 그대로 가져오기
 		</tr>
 		<tr>
 			<td align="center">제 목</td>
-			<td><input name="title" size="50" value="[Re]:"></td>	<!--원 제목 너무길면 substr이용해서 글자수 자를 것 -->
+			<td><input name="title" size="50" value="[Re]:${r.title }"></td>	<!--원 제목 너무길면 substr이용해서 글자수 자를 것 -->
 		</tr>
 		<tr>
 			<td align="center">내 용</td>
@@ -69,7 +65,7 @@ function check(){		//boardwrite.jsp에서 function 그대로 가져오기
 		</tr>
 		<tr>
 			<td colspan="2" align="center" height="30">
-				<input type="submit" value="작  성" onClick="check()">&nbsp;
+				<input type="button" value="작  성" onClick="check()">&nbsp;
 				<input type="button" value="목  록"
 				  onClick="location.href='boardlist'"></td>
 		</tr>

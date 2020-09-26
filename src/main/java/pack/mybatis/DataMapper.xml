@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="dev">
 
  <select id="selectDataAll" resultType="dto">
-select * from shopboard order by gnum desc, onum asc
+select * from shopboard order by gnum desc, onum desc
  </select>
  
  <select id="currentGetNum" resultType="int">
