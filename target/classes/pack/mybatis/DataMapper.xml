@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev">
+
+ <select id="selectDataAll" resultType="dto">
+select * from shopboard order by gnum desc, onum asc
+ </select>
+ 
+ <select id="currentGetNum" resultType="int">
+select max(num) from shopboard  
+</select>
+<insert id="insertData" parameterType="form">
+insert into shopboard values(#{num}, #{name}, #{pass},#{mail},#{title},#{cont},#{bip},#{bdate},0,#{gnum},0,0)
+</insert>
+<select id="totalList" resultType="string">
+select count(*) from shopboard
+</select>
+<update id="updateReadcnt" parameterType="string">
+update shopboard set readcnt=readcnt + 1 where num=#{num}
+</update>
+<update id="updateOnum" parameterType="form">
+update shopboard set onum=onum + 1 where onum >= #{onum} and gnum=#{gnum}
+</update>
+
+<update id="saveData" parameterType="form">
+update shopboard set name=#{name},mail=#{mail},title=#{title},cont=#{cont} where num=#{num}
+</update>
+<update id="saveReply" parameterType="form">
+update shopboard set name=#{name},mail=#{mail},title=#{title},cont=#{cont}, onum=#{onum}, gnum=#{gnum} where num=#{num}
+</update>
+<select id="getData" parameterType="string" resultType="dto">
+select * from shopboard where num=#{num}
+</select>
+
+<select id="checkPass" parameterType="string" resultType="string">
+select pass from shopboard where num=#{num}
+</select>
+
+<delete id="delData" parameterType="string">
+delete from shopboard where num=#{num}
+</delete>
+
+</mapper>
+
